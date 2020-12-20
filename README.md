@@ -10,9 +10,11 @@
 <h4 align="center">Debug COBOL code from VS Code or VSCodium.</h4>
 
 <p align="center">
+  <img src="https://img.shields.io/github/workflow/status/OlegKunitsyn/gnucobol-debug/Node.js%20CI.svg?label=Node.js%20CI" />
   <img src="https://vsmarketplacebadge.apphb.com/version/OlegKunitsyn.gnucobol-debug.svg?label=Debugger%20for%20GnuCOBOL" />
   <img src="https://vsmarketplacebadge.apphb.com/downloads-short/OlegKunitsyn.gnucobol-debug.svg?label=Downloads" />
   <img src="https://vsmarketplacebadge.apphb.com/installs-short/OlegKunitsyn.gnucobol-debug.svg?label=Installs" />
+  <img src="https://github.com/OlegKunitsyn/gnucobol-debug/workflows/Node.js%20CI/badge.svg" />
 </p>
 
 An extension to debug or execute GnuCOBOL code. Install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=OlegKunitsyn.gnucobol-debug) or [Open VSX-Registry](https://open-vsx.org/extension/OlegKunitsyn/gnucobol-debug).
@@ -29,7 +31,7 @@ An extension to debug or execute GnuCOBOL code. Install from [VS Code Marketplac
 ![Screenshot](screenshot.png)
 
 ### Requirements
-A COBOL-syntax extension i.e. `bitlang.cobol`, `broadcommfd.cobol-language-support`, `rechinformatica.rech-editor-cobol` or `ibm.zopeneditor` installed. Otherwise, the breakpoints will be unavailable. 
+A COBOL-syntax extension i.e. `bitlang.cobol` (recommended), `broadcommfd.cobol-language-support`, `rechinformatica.rech-editor-cobol` or `ibm.zopeneditor` installed. Otherwise, the breakpoints will be unavailable. 
 
 Now you may choose between *local* and *container* execution environment. Or try both of them :)
 
@@ -41,6 +43,10 @@ Now you may choose between *local* and *container* execution environment. Or try
 * [GnuCOBOL Docker](https://hub.docker.com/r/olegkunitsyn/gnucobol) container up and running. 
 The image includes GnuCOBOL,  GNU Debugger and all required dependencies needed to debug or execute your code. See an example below.
 
+#### Windows users
+The extension has an in-progress [Issue #29](https://github.com/OlegKunitsyn/gnucobol-debug/issues/29) accessing native Windows and mixed Docker-Windows paths.
+Your help would be greatly appreciated.
+
 ### Usage
 When your `launch.json` config is set up, you can debug or execute your COBOL program. If you debug a Compilation Group (main- and sub- programs), you need to list sub-programs inside `group` property. Here's an example:
 ```json
@@ -51,14 +57,8 @@ When your `launch.json` config is set up, you can debug or execute your COBOL pr
             "name": "COBOL debugger",
             "type": "gdb",
             "request": "launch",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": ["subsample.cbl", "subsubsample.cbl"],
-            "coverage": false
+            "group": ["subsample.cbl", "subsubsample.cbl"]
         }
     ]
 }
@@ -82,13 +82,7 @@ Set `coverage` property to `true` in your `launch.json` and start debugging sess
             "name": "COBOL debugger",
             "type": "gdb",
             "request": "launch",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": [],
             "coverage": true
         }
     ]
@@ -105,7 +99,7 @@ docker exec -i gnucobol cobc -V
 docker exec -i gnucobol gdb -v
 ```
 
-Add `container` property to your `launch.json` and start debugging session.
+Add `docker` property to your `launch.json` and start debugging session.
 Here's an example:
 ```json
 {
@@ -115,15 +109,8 @@ Here's an example:
             "name": "COBOL debugger",
             "type": "gdb",
             "request": "launch",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": [],
-            "coverage": true,
-            "container": "gnucobol"
+            "docker": "olegkunitsyn/gnucobol:3.1-dev"
         }
     ]
 }
@@ -148,13 +135,7 @@ Here's an example:
             "name": "COBOL debugger attach",
             "type": "gdb",
             "request": "attach",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": [],
             "pid": "${input:pid}"
         }
     ],
@@ -179,13 +160,7 @@ Here's an example:
             "name": "COBOL debugger attach",
             "type": "gdb",
             "request": "attach",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": [],
             "remoteDebugger": "localhost:5555"
         }
     ]
@@ -208,14 +183,7 @@ Add `verbose` property to your `launch.json` and start debugging session. In `DE
             "name": "COBOL debugger",
             "type": "gdb",
             "request": "launch",
-            "target": "${file}",
-            "targetargs": [],
-            "cwd": "${workspaceRoot}",
-            "gdbpath": "gdb",
-            "cobcpath": "cobc",
             "cobcargs": ["-free", "-x"],
-            "group": [],
-            "coverage": false,
             "verbose": true
         }
     ]

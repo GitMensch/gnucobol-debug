@@ -1,3 +1,25 @@
+## 2.31.32
+* Improve compatibility with GnuCOBOL 3.1.1+ [Issue #97](https://github.com/OlegKunitsyn/gnucobol-debug/issues/97)
+
+## 2.31.31
+* Improve debugging on Windows using Trembley's packages [Issue #29](https://github.com/OlegKunitsyn/gnucobol-debug/issues/29)
+
+## 2.31.30
+* Code cleanup
+
+## 2.31.28
+* Fix debugging via Docker on Windows [Issue #89](https://github.com/OlegKunitsyn/gnucobol-debug/issues/89) by Aaron Paterson
+
+## 2.31.27
+* Toggable details view [Issue #66](https://github.com/OlegKunitsyn/gnucobol-debug/issues/66) by Bruno Pacheco
+* Docker image selection [Issue #82](https://github.com/OlegKunitsyn/gnucobol-debug/issues/82)
+* Breaking changes in `launch.json`:
+  - `targetargs` property renamed to `arguments`, nullable by default
+  - `container` property renamed to `docker`, set to `olegkunitsyn/gnucobol:3.1-dev` by default
+
+## 1.31.26
+* Support for setting data storages and field values on GC 2.2 [Issue #40](https://github.com/OlegKunitsyn/gnucobol-debug/issues/40)
+
 ## 1.31.25
 * Fix failed tests [Issue #71](https://github.com/OlegKunitsyn/gnucobol-debug/issues/71)
 * Fix WATCH [Issue #62](https://github.com/OlegKunitsyn/gnucobol-debug/issues/62)
